@@ -2,14 +2,18 @@ from django.shortcuts import render
 from django.db.models import Sum, Max
 from models import SuspenseClearance
 from models import TaDa
+
 from django.http import  HttpResponseRedirect, HttpResponse
 from librehatti.catalog.models import Product
 from librehatti.suspense.models import SuspenseClearance
 from librehatti.suspense.models import SuspenseOrder
+
 from librehatti.suspense.forms import Clearance_form
 from librehatti.suspense.forms import SuspenseForm
 from librehatti.suspense.forms import TaDaForm
 from librehatti.suspense.forms import TaDaSearch
+from librehatti.suspense.forms import Programme_letter
+
 from librehatti.prints.helper import num2eng
 
 import datetime
@@ -52,6 +56,10 @@ def clearance_search(request):
     return render(request,'suspense/suspense_first.html',{
                   'search_form': form})
 
+def letter(request):
+    form = Programme_letter
+    return render(request,'suspense/programme_letter.html',{
+                   'search_form':form})
 
 def clearance(request):
     if 'Search' in request.GET:
@@ -62,6 +70,18 @@ def clearance(request):
                      })
         temp = {'ref_no':ref_no,'cl_report':cl_report,}
         return render(request, 'suspense/suspenseform.html',temp)
+
+def submitletter(request):
+    if 'Search' in request.GET:
+        Address = request.GET['Address']
+        ClientContact = request.GET['ClientContact']
+        Subject = request.GET['Subject']
+        Site_Venue = request.GET['Site_Venue']
+        Site_Date = request.GET['Site_Date']
+        Site_Time = request.GET['Site_Time']
+        Staff = request.GET['Staff']
+        temp = {'Address':Address,'ClientContact':ClientContact,'Subject':Subject,'Site_Venue':Site_Venue,'Site_Date':Site_Date,'Site_Time':Site_Time,'Staff':Staff}
+        return render(request, 'suspense/submitletter.html', temp)
 
 
 def clearance_result(request):

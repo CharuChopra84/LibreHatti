@@ -56,3 +56,8 @@ class TaDa(models.Model):
     testing_staff = models.CharField(max_length=100)
     def __unicode__(self):
        return self.suspense
+
+
+
+
+

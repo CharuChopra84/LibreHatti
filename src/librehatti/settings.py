@@ -10,9 +10,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'amitt',                     
-        'USER': 'amit',
-        'PASSWORD': 'amitt',
+        'NAME': 'librehatti',                     
+        'USER': 'root',
+        'PASSWORD': 'root',
         'HOST': 'localhost',                      
         'PORT': '',                   
     }
@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'librehatti.suspense',
     'librehatti.bills',
     'librehatti.reports',
+   
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
