@@ -30,6 +30,15 @@ class Department(models.Model):
     def __unicode__(self):
         return self.title
 
+class ProgrammeLetter(models.Model):
+    Address=models.CharField(max_length=500)
+    ClientName=models.CharField(max_length=200)
+    ClientContact=models.CharField(max_length=10)
+    Subject=models.CharField(max_length=200)
+    Staff=models.CharField(max_length=700)
+    Site_Venue=models.CharField(max_length=500)
+    Site_Date=models.DateField(default=datetime.date.today)
+    Site_Time=models.TimeField()
 
 class Staff(models.Model):
     department = models.ForeignKey(Department)

@@ -2,17 +2,19 @@ from django.shortcuts import render
 from django.db.models import Sum, Max
 from models import SuspenseClearance
 from models import TaDa
+from models import ProgrammeLetter 
 
 from django.http import  HttpResponseRedirect, HttpResponse
 from librehatti.catalog.models import Product
 from librehatti.suspense.models import SuspenseClearance
 from librehatti.suspense.models import SuspenseOrder
-
+from librehatti.suspense.models import ProgrammeLetter
 from librehatti.suspense.forms import Clearance_form
 from librehatti.suspense.forms import SuspenseForm
 from librehatti.suspense.forms import TaDaForm
 from librehatti.suspense.forms import TaDaSearch
-from librehatti.suspense.forms import Programme_letter
+from librehatti.suspense.forms import LetterForm
+
 
 from librehatti.prints.helper import num2eng
 
@@ -57,7 +59,7 @@ def clearance_search(request):
                   'search_form': form})
 
 def letter(request):
-    form = Programme_letter
+    form = LetterForm()   
     return render(request,'suspense/programme_letter.html',{
                    'search_form':form})
 
@@ -72,15 +74,18 @@ def clearance(request):
         return render(request, 'suspense/suspenseform.html',temp)
 
 def submitletter(request):
-    if 'Search' in request.GET:
-        Address = request.GET['Address']
-        ClientContact = request.GET['ClientContact']
-        Subject = request.GET['Subject']
-        Site_Venue = request.GET['Site_Venue']
-        Site_Date = request.GET['Site_Date']
-        Site_Time = request.GET['Site_Time']
-        Staff = request.GET['Staff']
-        temp = {'Address':Address,'ClientContact':ClientContact,'Subject':Subject,'Site_Venue':Site_Venue,'Site_Date':Site_Date,'Site_Time':Site_Time,'Staff':Staff}
+    if 'Submit' in request.GET:
+        address = request.GET.get(address)
+        clientName=request.GET['clientName']
+        clientContact = request.GET['clientContact']
+        subject = request.GET['subject']
+        staff = request.GET['staff']
+        site_venue = request.GET['site_venue']
+        site_date = request.GET['site_date']
+        # Site_Time = request.GET['Site_Time']
+        obj=ProgrammeLetter(address=address,  clientcontact=clientContact, subject=subject, staff=staff, site_venue=site_venue,site_date=site_date)
+        obj.save()
+        temp = {'address':address, 'clientName':clientName, 'clientContact':clientContact,'subject':subject,'site_venue':site_venue,'site_date':site_date,'staff':staff}
         return render(request, 'suspense/submitletter.html', temp)
 
 

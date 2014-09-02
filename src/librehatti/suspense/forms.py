@@ -3,6 +3,7 @@ from models import SuspenseClearance
 from models import TaDa
 from models import SuspenseOrder
 from models import Staff
+from models import ProgrammeLetter
 from django import forms
 
 # Create your forms here.
@@ -27,13 +28,9 @@ class TaDaForm(ModelForm):
         model = TaDa
         exclude = ('',)
 
-class Programme_letter(forms.Form):
-    Address = forms.CharField(max_length=50)
-    ClientContact = forms.CharField(max_length= 500)
-    Subject = forms.CharField(max_length=500)
-    Site_Venue = forms.CharField(max_length=500)
-    Site_Date = forms.DateField()
-    Site_Time = forms.TimeField()
-    Staff = forms.ModelMultipleChoiceField(queryset=Staff.objects.all(), widget=forms.CheckboxSelectMultiple())
 
+class LetterForm(ModelForm):
+    class Meta:
+        model=ProgrammeLetter
+        fieds=[' address', 'clientName',' clientContact',' subject','staff','site_venue','site_date']
 
